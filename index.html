@@ -7,14 +7,24 @@
 <body>
 	<div class="container-fluid">
 		<h1 class="display-4">Welcome to VueJS!</h1>
+		<div id="first">{{ message }}</div>
+		<div id="second">{{ message }}</div>
 	</div>
 	<script src="js/vue.js"></script>
 	<script>
 		new Vue({
-			created() {
-				alert('Up and Running');
+			el: '#first',
+			data: {
+				message: 'FIRST!'
+			},
+		});
+
+		new Vue({
+			el: '#second',
+			data: {
+				message: 'SECOND!'
 			}
-		})
+		});
 	</script>
 </body>
 </html>
