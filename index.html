@@ -5,26 +5,35 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 </head>
 <body>
-	<div class="container-fluid">
-		<h1 class="display-4">Welcome to VueJS!</h1>
-		<div id="first">{{ message }}</div>
-		<div id="second">{{ message }}</div>
+	<div id="app" class="container-fluid">
+		<div class="col-6 mx-auto">
+			<avatar-component :user="users[0]" />
+		</div>
 	</div>
 	<script src="js/vue.js"></script>
+	<script src="js/components.js"></script>
 	<script>
 		new Vue({
-			el: '#first',
+			el: '#app',
 			data: {
-				message: 'FIRST!'
+				users: [
+					{
+						id: 1,
+						name: 'Jane Doe',
+						avatar: 'https://www.w3schools.com/howto/img_avatar.png',
+						details: `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod`
+					}
+				]
 			},
-		});
-
-		new Vue({
-			el: '#second',
-			data: {
-				message: 'SECOND!'
+			methods: {
+						
 			}
 		});
 	</script>
 </body>
 </html>
+
+
+
+
+
