@@ -7,7 +7,14 @@
 <body>
 	<div id="app" class="container-fluid">
 		<div class="col-6 mx-auto">
-			<avatar-component :user="users[0]" />
+			<ul class="list-group">
+	  		<li 
+	  		  :key="index"
+	  		  v-for="(user, index) in users"
+	  			class="list-group-item">
+	  				<avatar-component :user="user" />
+	  		</li>
+			</ul>
 		</div>
 	</div>
 	<script src="js/vue.js"></script>
@@ -21,6 +28,18 @@
 						id: 1,
 						name: 'Jane Doe',
 						avatar: 'https://www.w3schools.com/howto/img_avatar.png',
+						details: `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod`
+					},
+					{
+						id: 2,
+						name: 'Steve Jobs',
+						avatar: 'https://www.w3schools.com/howto/img_avatar.png',
+						details: `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod`
+					},
+					{
+						id: 3,
+						name: 'Tim Berners Lee',
+						avatar: 'https://www.w3schools.com/howto/img_avatar2.png',
 						details: `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod`
 					}
 				]
