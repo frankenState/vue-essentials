@@ -6,13 +6,23 @@
 </head>
 <body>
 	<div id="app" class="container-fluid">
-		<div class="col-6 mx-auto">
+		<div class="col-6 mx-auto mt-2">
+			<form-component 
+				:user="user" 
+				:isediting="isEditing"
+				@save="saveData"
+				@clear="clearForm"
+			></form-component>
 			<ul class="list-group">
 	  		<li 
 	  		  :key="index"
 	  		  v-for="(user, index) in users"
 	  			class="list-group-item">
-	  				<avatar-component :user="user" />
+	  				<avatar-component 
+	  				 	:user="user"
+	  				 	@delete="deleteData"
+	  				 	@edit="editData"
+	  				 />
 	  		</li>
 			</ul>
 		</div>
@@ -23,6 +33,12 @@
 		new Vue({
 			el: '#app',
 			data: {
+				isEditing: false,
+				user: {
+					name: '',
+					avatar: '',
+					details: ''
+				},
 				users: [
 					{
 						id: 1,
@@ -45,7 +61,68 @@
 				]
 			},
 			methods: {
+				clearForm(){
+					// resetting the form fields
+					this.user = {
+						name: '',
+						avatar: '',
+						details: ''
+					};
+					this.isEditing = false;
+				},
+
+				editData(id){
+					// A flag variable that will help
+					// us determine if the save event is 
+					// adding a new `user` or updating an
+					// existing user
+					this.isEditing = true;
+
+					// find the user based from the ID
+					let user = Object.assign({}, this.users.find(user => user.id == id));
+
+					// assign the user to show the form details
+					this.user = user;
+
+				},
+
+				deleteData(id){
+					// create a new copy of the users
+					let newUsers = Object.assign([], this.users);
+					// filter the users that will exclude the object
+					// based from the id
+					this.users = newUsers.filter(user => user.id != id);
+				},
+
+				saveData(){
+						// assign the user object to a new reference
+						let newUser = Object.assign({}, this.user);
+
+						if (!this.isEditing){
+							// add a random id for data manipulation
+							newUser.id = parseInt(Math.random() * 101)
+
+							// adding it in the users array
+							this.users.push(newUser);
+							
+						} else {
+							// create a copy of users
+							let newUsers = Object.assign([], this.users);
+
+							// assign the new users and filtering
+							// it using the `map` function
+							this.users = newUsers.map( user => user.id == newUser.id ? newUser : user );
+
+							this.isEditing = false;
+						}
 						
+						// resetting the form fields
+						this.user = {
+							name: '',
+							avatar: '',
+							details: ''
+						}
+				}		
 			}
 		});
 	</script>
